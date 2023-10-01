@@ -4,26 +4,29 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/ygminds73/Terraform-Automation.git']])
+                checkout scm    
             }
         }
     
-        stage ("terraform init") {
+        stage("terraform init") {
             steps {
-                sh ("terraform init -reconfigure") 
+                sh "terraform init -reconfigure"
             }
         }
         
-        stage ("plan") {
+        stage("Plan") {
             steps {
-                sh ('terraform plan') 
+                sh 'terraform plan'
             }
         }
 
-        stage (" Action") {
+        stage("Action") {
             steps {
-                echo "Terraform action is --> ${action}"
-                sh ('terraform ${action} --auto-approve') 
+                script {
+                    def action = "apply" // Define the action you want to perform
+                    echo "Terraform action is --> ${action}"
+                    sh "terraform ${action} --auto-approve"
+                }
            }
         }
     }
