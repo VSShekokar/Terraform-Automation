@@ -3,6 +3,6 @@ terraform {
     bucket = "vsstf-state-bucket"
     key = "main"
     region = "us-east-1"
-    dynamodb_table = "my-table-dynamo "
+    dynamodb_table = "my-table-dynamo"
   }
 }
